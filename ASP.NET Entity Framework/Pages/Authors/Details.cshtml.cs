@@ -20,6 +20,7 @@ namespace ASP.NET_Entity_Framework.Pages.Authors
         }
 
         public Author Author { get; set; } = default!;
+        public List<Game> GamesByAuthor { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -36,6 +37,7 @@ namespace ASP.NET_Entity_Framework.Pages.Authors
             else
             {
                 Author = author;
+                GamesByAuthor = _context.Games.Where(g => g.AuthorId == id).ToList();
             }
             return Page();
         }

@@ -25,6 +25,16 @@
         </dd>
     </dl>
 </div>
+
+<div>
+    <h4>Games by this Author</h4>
+    <ul>
+        @foreach (var game in Model.GamesByAuthor) {
+            <li>@game.Name</li>
+        }
+    </ul>
+</div>
+
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Author.AuthorId">Edit</a> |
     <a asp-page="./Index">Back to List</a>
