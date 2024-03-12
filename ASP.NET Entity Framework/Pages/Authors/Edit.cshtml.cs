@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using ASP.NET_Entity_Framework.Data;
 using ASP.NET_Entity_Framework.Models;
 
-namespace ASP.NET_Entity_Framework.Pages.Games
+namespace ASP.NET_Entity_Framework.Pages.Authors
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace ASP.NET_Entity_Framework.Pages.Games
         }
 
         [BindProperty]
-        public Game Game { get; set; } = default!;
+        public Author Author { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,13 +30,12 @@ namespace ASP.NET_Entity_Framework.Pages.Games
                 return NotFound();
             }
 
-            var game =  await _context.Games.FirstOrDefaultAsync(m => m.GameId == id);
-            if (game == null)
+            var author =  await _context.Authors.FirstOrDefaultAsync(m => m.AuthorId == id);
+            if (author == null)
             {
                 return NotFound();
             }
-            Game = game;
-           ViewData["AuthorId"] = new SelectList(_context.Authors, "AuthorId", "LastName");
+            Author = author;
             return Page();
         }
 
@@ -49,7 +48,7 @@ namespace ASP.NET_Entity_Framework.Pages.Games
                 return Page();
             }
 
-            _context.Attach(Game).State = EntityState.Modified;
+            _context.Attach(Author).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +56,7 @@ namespace ASP.NET_Entity_Framework.Pages.Games
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!GameExists(Game.GameId))
+                if (!AuthorExists(Author.AuthorId))
                 {
                     return NotFound();
                 }
@@ -70,9 +69,9 @@ namespace ASP.NET_Entity_Framework.Pages.Games
             return RedirectToPage("./Index");
         }
 
-        private bool GameExists(int id)
+        private bool AuthorExists(int id)
         {
-            return _context.Games.Any(e => e.GameId == id);
+            return _context.Authors.Any(e => e.AuthorId == id);
         }
     }
 }

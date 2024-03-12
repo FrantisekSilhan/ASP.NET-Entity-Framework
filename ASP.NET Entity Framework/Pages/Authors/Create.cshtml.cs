@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ASP.NET_Entity_Framework.Data;
 using ASP.NET_Entity_Framework.Models;
 
-namespace ASP.NET_Entity_Framework.Pages.Games
+namespace ASP.NET_Entity_Framework.Pages.Authors
 {
     public class CreateModel : PageModel
     {
@@ -21,12 +21,11 @@ namespace ASP.NET_Entity_Framework.Pages.Games
 
         public IActionResult OnGet()
         {
-        ViewData["AuthorId"] = new SelectList(_context.Authors, "AuthorId", "LastName");
             return Page();
         }
 
         [BindProperty]
-        public Game Game { get; set; } = default!;
+        public Author Author { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -36,7 +35,7 @@ namespace ASP.NET_Entity_Framework.Pages.Games
                 return Page();
             }
 
-            _context.Games.Add(Game);
+            _context.Authors.Add(Author);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

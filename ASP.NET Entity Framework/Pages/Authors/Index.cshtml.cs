@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ASP.NET_Entity_Framework.Data;
 using ASP.NET_Entity_Framework.Models;
 
-namespace ASP.NET_Entity_Framework.Pages.Games
+namespace ASP.NET_Entity_Framework.Pages.Authors
 {
     public class IndexModel : PageModel
     {
@@ -19,12 +19,11 @@ namespace ASP.NET_Entity_Framework.Pages.Games
             _context = context;
         }
 
-        public IList<Game> Game { get;set; } = default!;
+        public IList<Author> Author { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Game = await _context.Games
-                .Include(g => g.Author).ToListAsync();
+            Author = await _context.Authors.ToListAsync();
         }
     }
 }
